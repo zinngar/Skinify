@@ -1,6 +1,6 @@
 {
-  "name": "Skin Studio",
-  "short_name": "SkinStudio",
+  "name": "Skinify",
+  "short_name": "Skinify",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#09090b",

@@ -18,7 +18,7 @@ function App() {
         <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-8 overflow-auto bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-900 to-zinc-950 relative min-h-[400px]">
           <header className="absolute top-4 md:top-8 flex flex-col items-center gap-2 z-10">
              <h1 className="text-2xl md:text-3xl font-black tracking-tighter bg-gradient-to-br from-white via-blue-400 to-indigo-600 bg-clip-text text-transparent italic uppercase">
-               Skin Studio
+               Skinify
              </h1>
              <p className="hidden md:block text-zinc-600 text-[10px] font-bold uppercase tracking-[0.3em] bg-zinc-900 px-3 py-1 rounded-full border border-zinc-800">
                Java Edition • Reference-Ready

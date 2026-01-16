@@ -1,9 +1,10 @@
-import type { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.skinstudio.app',
-  appName: 'Skin Studio',
-  webDir: 'dist'
+  appId: 'com.skinify.app',
+  appName: 'Skinify',
+  webDir: 'dist',
+  bundledWebRuntime: false
 };
 
 export default config;
