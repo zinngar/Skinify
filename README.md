@@ -1,4 +1,4 @@
-# Minecraft Skin Studio
+# Skinify
 
 A high-performance, web-based Minecraft Java Edition skin editor with built-in reference image support.
 
