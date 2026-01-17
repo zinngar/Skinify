@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSkin } from '../context/SkinContext';
-import { Paintbrush, Eraser, Pipette, PaintBucket, Undo, Redo, Download, Upload, Trash2, Camera } from 'lucide-react';
+import { Paintbrush, Eraser, Pipette, PaintBucket, Undo, Redo, Download, Upload, Trash2, Camera, MousePointer2 } from 'lucide-react';
 import { ColorPicker, useColor } from 'react-color-palette';
 import 'react-color-palette/css';
 
 const ToolBar: React.FC = () => {
   const {
     tool, setTool, undo, redo, brushColor, setBrushColor,
-    setSkinData, saveHistory, canvasRef, clearCanvas, resetCamera
+    setSkinData, saveHistory, canvasRef, clearCanvas, resetCamera,
+    brushSize, setBrushSize
   } = useSkin();
   const [color, setColor] = useColor(brushColor);
 
@@ -85,6 +86,21 @@ const ToolBar: React.FC = () => {
               <span className="text-xs font-semibold">{t.label}</span>
             </button>
           ))}
+        </div>
+
+        <div className="pt-2 px-1">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-[10px] font-bold text-zinc-500 uppercase">Brush Size</span>
+            <span className="text-xs font-mono text-zinc-300">{brushSize}px</span>
+          </div>
+          <input
+            type="range"
+            min="1"
+            max="8"
+            value={brushSize}
+            onChange={(e) => setBrushSize(parseInt(e.target.value))}
+            className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-600"
+          />
         </div>
       </div>
 

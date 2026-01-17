@@ -1,1 +1,0 @@
-{"root":["./src/App.tsx","./src/main.tsx","./src/components/PixelEditor.tsx","./src/components/ReferenceManager.tsx","./src/components/SkinViewer3D.tsx","./src/components/ToolBar.tsx","./src/context/SkinContext.tsx"],"version":"5.9.3"}

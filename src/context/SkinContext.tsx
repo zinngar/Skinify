@@ -54,18 +54,19 @@ export const SkinProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (canvas && !skinData) {
+    if (canvas && historyRef.current.length === 0) {
       const ctx = canvas.getContext('2d');
       if (ctx) {
         canvas.width = 64;
         canvas.height = 64;
         ctx.clearRect(0, 0, 64, 64);
+
         const initialData = canvas.toDataURL();
         setSkinData(initialData);
         historyRef.current = [initialData];
       }
     }
-  }, [skinData]);
+  }, []);
 
   const saveHistory = useCallback(() => {
     if (canvasRef.current) {
@@ -84,7 +85,6 @@ export const SkinProvider: FC<{ children: ReactNode }> = ({ children }) => {
       const current = historyRef.current.pop()!;
       redoRef.current.push(current);
       const previous = historyRef.current[historyRef.current.length - 1];
-      setSkinData(previous);
 
       const img = new Image();
       img.onload = () => {
@@ -92,6 +92,7 @@ export const SkinProvider: FC<{ children: ReactNode }> = ({ children }) => {
         if (ctx) {
           ctx.clearRect(0, 0, 64, 64);
           ctx.drawImage(img, 0, 0);
+          setSkinData(previous);
         }
       };
       img.src = previous;
@@ -102,7 +103,6 @@ export const SkinProvider: FC<{ children: ReactNode }> = ({ children }) => {
     if (redoRef.current.length > 0) {
       const next = redoRef.current.pop()!;
       historyRef.current.push(next);
-      setSkinData(next);
 
       const img = new Image();
       img.onload = () => {
@@ -110,6 +110,7 @@ export const SkinProvider: FC<{ children: ReactNode }> = ({ children }) => {
         if (ctx) {
           ctx.clearRect(0, 0, 64, 64);
           ctx.drawImage(img, 0, 0);
+          setSkinData(next);
         }
       };
       img.src = next;
@@ -122,10 +123,15 @@ export const SkinProvider: FC<{ children: ReactNode }> = ({ children }) => {
       const ctx = canvas.getContext('2d');
       if (ctx) {
         ctx.clearRect(0, 0, 64, 64);
-        saveHistory();
+        const newData = canvas.toDataURL();
+        setSkinData(newData);
+        if (newData !== historyRef.current[historyRef.current.length - 1]) {
+          historyRef.current.push(newData);
+          redoRef.current = [];
+        }
       }
     }
-  }, [saveHistory]);
+  }, []);
 
   const resetCamera = useCallback(() => {
     setResetCameraCount(c => c + 1);

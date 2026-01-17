@@ -29,8 +29,6 @@ dist-ssr
 # Capacitor
 /android
 /ios
-node_modules/
-dist/
-<<<<<<< SEARCH
-=======
->>>>>>> REPLACE
+
+# Vite
+.vite

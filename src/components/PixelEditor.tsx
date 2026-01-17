@@ -3,9 +3,10 @@ import { useSkin } from '../context/SkinContext';
 
 const PixelEditor: React.FC = () => {
   const {
+    skinData,
     brushColor, tool, brushSize,
     canvasRef: hiddenCanvasRef,
-    saveHistory, setBrushColor,
+    saveHistory, setBrushColor, setSkinData,
     references, templateVisible, templateOpacity
   } = useSkin();
 
@@ -99,25 +100,15 @@ const PixelEditor: React.FC = () => {
 
   useEffect(() => {
     updateDisplay();
-  }, [updateDisplay, hiddenCanvasRef.current]);
+  }, [updateDisplay, skinData]);
 
-  const getCoordinates = (e: React.MouseEvent | React.TouchEvent) => {
+  const getCoordinates = (e: React.PointerEvent) => {
     const canvas = displayCanvasRef.current;
     if (!canvas) return null;
 
     const rect = canvas.getBoundingClientRect();
-    let clientX, clientY;
-
-    if ('touches' in e) {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
-    } else {
-      clientX = e.clientX;
-      clientY = e.clientY;
-    }
-
-    const x = Math.floor(((clientX - rect.left) / rect.width) * 64);
-    const y = Math.floor(((clientY - rect.top) / rect.height) * 64);
+    const x = Math.floor(((e.clientX - rect.left) / rect.width) * 64);
+    const y = Math.floor(((e.clientY - rect.top) / rect.height) * 64);
 
     return { x, y };
   };
@@ -144,6 +135,10 @@ const PixelEditor: React.FC = () => {
     }
 
     updateDisplay();
+
+    // Trigger real-time 3D update
+    // We use setSkinData but avoid adding to history every move
+    setSkinData(hiddenCanvas.toDataURL());
   };
 
   const floodFill = (ctx: CanvasRenderingContext2D, x: number, y: number, fillColor: string) => {
@@ -197,13 +192,13 @@ const PixelEditor: React.FC = () => {
 
   const handlePointerDown = (e: React.PointerEvent) => {
     setIsDrawing(true);
-    const coords = getCoordinates(e as any);
+    const coords = getCoordinates(e);
     if (coords) draw(coords.x, coords.y);
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
     if (!isDrawing) return;
-    const coords = getCoordinates(e as any);
+    const coords = getCoordinates(e);
     if (coords) draw(coords.x, coords.y);
   };
 

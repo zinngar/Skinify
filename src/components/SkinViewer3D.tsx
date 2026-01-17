@@ -10,14 +10,28 @@ const SkinViewer3D: React.FC = () => {
 
   useEffect(() => {
     if (canvasRef.current && !viewerRef.current) {
-      viewerRef.current = new SkinViewer({
+      const viewer = new SkinViewer({
         canvas: canvasRef.current,
-        width: 280,
-        height: 360,
+        preserveDrawingBuffer: true
       });
 
-      viewerRef.current.autoRotate = true;
-      viewerRef.current.animation = new IdleAnimation();
+      viewer.autoRotate = true;
+      viewer.animation = new IdleAnimation();
+      viewer.background = 0x18181b;
+
+      viewerRef.current = viewer;
+
+      // Handle initial sizing
+      const resize = () => {
+        if (canvasRef.current && viewerRef.current) {
+          viewerRef.current.width = canvasRef.current.clientWidth;
+          viewerRef.current.height = canvasRef.current.clientHeight;
+        }
+      };
+
+      resize();
+      window.addEventListener('resize', resize);
+      return () => window.removeEventListener('resize', resize);
     }
 
     return () => {
@@ -40,7 +54,7 @@ const SkinViewer3D: React.FC = () => {
   }, [resetCameraCount]);
 
   return (
-    <div className="relative border border-zinc-700 bg-zinc-900 rounded-xl overflow-hidden shadow-xl group">
+    <div className="relative border border-zinc-700 bg-zinc-900 rounded-xl overflow-hidden shadow-xl group aspect-[3/4] min-h-[300px]">
       <canvas ref={canvasRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
 
       <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
