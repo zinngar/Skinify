@@ -151,8 +151,8 @@ export const SkinProvider: FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-export const useSkin = () => {
+export function useSkin() {
   const context = useContext(SkinContext);
   if (!context) throw new Error('useSkin must be used within a SkinProvider');
   return context;
-};
+}

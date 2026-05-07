@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useSkin } from '../context/SkinContext';
 
 const PixelEditor: React.FC = () => {
@@ -99,7 +99,7 @@ const PixelEditor: React.FC = () => {
 
   useEffect(() => {
     updateDisplay();
-  }, [updateDisplay, hiddenCanvasRef.current]);
+  }, [updateDisplay]);
 
   const getCoordinates = (e: React.MouseEvent | React.TouchEvent) => {
     const canvas = displayCanvasRef.current;
@@ -109,11 +109,11 @@ const PixelEditor: React.FC = () => {
     let clientX, clientY;
 
     if ('touches' in e) {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
+      clientX = (e as React.TouchEvent).touches[0].clientX;
+      clientY = (e as React.TouchEvent).touches[0].clientY;
     } else {
-      clientX = e.clientX;
-      clientY = e.clientY;
+      clientX = (e as React.MouseEvent).clientX;
+      clientY = (e as React.MouseEvent).clientY;
     }
 
     const x = Math.floor(((clientX - rect.left) / rect.width) * 64);
