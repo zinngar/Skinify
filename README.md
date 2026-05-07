@@ -26,8 +26,18 @@ A high-performance, web-based Minecraft Java Edition skin editor with built-in r
 1. Clone the repository.
 2. Run `npm install` to install dependencies.
 3. Run `npm run dev` to start the development server.
-4. Open `http://localhost:5173` in your browser.
+Open `http://localhost:3000` in your browser.
 
 ## Building for Production
 
 Run `npm run build` to generate a production-ready bundle in the `dist` directory.
+
+## Deployment
+
+This application is configured for deployment with Vite. The production build can be served using:
+
+```bash
+npm run preview
+```
+
+The application will be available at the URL provided in the environment.

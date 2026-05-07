@@ -11,7 +11,7 @@ const ToolBar: React.FC = () => {
   } = useSkin();
   const [color, setColor] = useColor(brushColor);
 
-  const handleColorChange = (newColor: any) => {
+  const handleColorChange = (newColor: { hex: string; hsv: object; rgb: object }) => {
     setColor(newColor);
     setBrushColor(newColor.hex);
   };
