@@ -2,6 +2,10 @@
 
 A high-performance, web-based Minecraft Java Edition skin editor with built-in reference image support.
 
+## Live Demo
+
+[https://zinngar.github.io/Skinify/](https://zinngar.github.io/Skinify/)
+
 ## Features
 
 - **3D Real-time Preview**: Powered by `skinview3d`, providing a live view of your skin as you edit.
@@ -34,10 +38,21 @@ Run `npm run build` to generate a production-ready bundle in the `dist` director
 
 ## Deployment
 
-This application is configured for deployment with Vite. The production build can be served using:
+### GitHub Pages
+
+This application is deployed to GitHub Pages. To deploy your own version:
+
+1. Update the `homepage` field in `package.json` to your GitHub Pages URL.
+2. Update the `base` path in `vite.config.ts`.
+3. Run:
+```bash
+npm run deploy
+```
+
+### Local Preview
+
+To preview the production build locally:
 
 ```bash
 npm run preview
 ```
-
-The application will be available at the URL provided in the environment.
