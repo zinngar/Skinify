@@ -11,7 +11,7 @@ const ToolBar: React.FC = () => {
   } = useSkin();
   const [color, setColor] = useColor(brushColor);
 
-  const handleColorChange = (newColor: { hex: string; hsv: object; rgb: object }) => {
+  const handleColorChange = (newColor: any) => {
     setColor(newColor);
     setBrushColor(newColor.hex);
   };
@@ -96,7 +96,8 @@ const ToolBar: React.FC = () => {
               key={c}
               onClick={() => {
                 setBrushColor(c);
-                setColor({ hex: c, hsv: color.hsv, rgb: color.rgb });
+                // @ts-expect-error - hex update
+                setColor({ ...color, hex: c });
               }}
               className="w-full aspect-square rounded-sm border border-zinc-800 hover:scale-110 transition-transform"
               style={{ backgroundColor: c }}
