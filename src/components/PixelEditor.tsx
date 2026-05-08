@@ -29,6 +29,10 @@ const PixelEditor: React.FC = () => {
       templateImgRef.current = img;
       forceUpdate({});
     };
+    img.onerror = () => {
+        // Fallback or just log
+        console.error('Failed to load skin template');
+    };
   }, []);
 
   // Pre-load reference images
@@ -99,7 +103,7 @@ const PixelEditor: React.FC = () => {
 
   useEffect(() => {
     updateDisplay();
-  }, [updateDisplay]);
+  }, [updateDisplay, hiddenCanvasRef]);
 
   const getCoordinates = (e: React.MouseEvent | React.TouchEvent) => {
     const canvas = displayCanvasRef.current;
