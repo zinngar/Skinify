@@ -96,7 +96,7 @@ const ToolBar: React.FC = () => {
               key={c}
               onClick={() => {
                 setBrushColor(c);
-                // @ts-expect-error - hex update
+                // @ts-ignore
                 setColor({ ...color, hex: c });
               }}
               className="w-full aspect-square rounded-sm border border-zinc-800 hover:scale-110 transition-transform"
