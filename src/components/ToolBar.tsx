@@ -11,6 +11,7 @@ const ToolBar: React.FC = () => {
   } = useSkin();
   const [color, setColor] = useColor(brushColor);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleColorChange = (newColor: any) => {
     setColor(newColor);
     setBrushColor(newColor.hex);
@@ -96,8 +97,9 @@ const ToolBar: React.FC = () => {
               key={c}
               onClick={() => {
                 setBrushColor(c);
-                // @ts-ignore
-                setColor({ ...color, hex: c });
+                // We use any cast here to avoid complex color object construction for quick palette
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                setColor({ ...color, hex: c } as any);
               }}
               className="w-full aspect-square rounded-sm border border-zinc-800 hover:scale-110 transition-transform"
               style={{ backgroundColor: c }}
