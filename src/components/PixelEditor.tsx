@@ -23,8 +23,7 @@ const PixelEditor: React.FC = () => {
 
   useEffect(() => {
     const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = 'https://raw.githubusercontent.com/bspt9/skinview3d/master/examples/skins/steve.png';
+    img.src = `${import.meta.env.BASE_URL}skin-template.png`;
     img.onload = () => {
       templateImgRef.current = img;
       forceUpdate({});
